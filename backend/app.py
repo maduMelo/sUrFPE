@@ -23,10 +23,35 @@ def analyze_csv():
         if not file.filename.endswith('.csv'):
             return jsonify({'error': 'File must be a CSV'}), 400
 
-        return jsonify({'message': f'file {file.filename} received successfully!'})
+        # Read the CSV file into a DataFrame
+        df = pd.read_csv(file)
+
+        classification_map = {
+            '4. Perfeito': 1.0,
+            '3. Quase Perfeito': 0.75,
+            '2. Imperfeito': 0.45,
+            '1. Falha na Realização': 0.25,
+            'Impossível Analisar': 0
+        }
+
+        # Apply the mapping to your column
+        df['Classificação'] = df['Classificação'].map(classification_map)
+
+        # Mean of the athlete results
+        avg_score_per_surfer = df.groupby('Atleta')['Classificação'].mean()
+
+        return jsonify({
+            'message': f'File {file.filename} received successfully!',
+            'mean_scores': avg_score_per_surfer.to_dict()
+        })
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({'message': 'Welcome to the CSV Analysis API!'}), 200
 
 
 if __name__ == '__main__':
