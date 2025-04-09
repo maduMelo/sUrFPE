@@ -53,6 +53,12 @@ Enquanto o frontend final não está pronto, você pode testar a lógica do back
 🔗 **[Abrir Demonstração no Google Colab](https://colab.research.google.com/drive/11RRetspBUfZcAM0Vt_AFy-9a-7IeHD8B?usp=sharing)**  
 Envie seu CSV e visualize os resultados da análise em formato gráfico.
 
+Ou testar o envio de arquivos e retornos da API através de uma interface web temporária:
+
+🔗 **[Abrir Frontend Temporário](https://elegant-naiad-6a2f2d.netlify.app/)** 
+
+🔗 **[Abrir API](https://meom.pythonanywhere.com/)** 
+
 ---
 
 ## 🛠 Tecnologias Utilizadas
