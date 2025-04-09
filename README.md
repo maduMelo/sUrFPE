@@ -52,7 +52,7 @@ Enquanto o frontend final não está pronto, você pode testar a lógica do back
 
 🔗 **[Abrir Demonstração no Google Colab](https://colab.research.google.com/drive/11RRetspBUfZcAM0Vt_AFy-9a-7IeHD8B?usp=sharing)**  
 
-Envie seu CSV e visualize os resultados da análise em formato gráfico 📁 **[CSV for testing](test-data\data.csv)** 
+Envie seu CSV e visualize os resultados da análise em formato gráfico 📁 **[CSV for testing](test-data/data.csv)** 
 
 Ou testar o envio de arquivos e retornos da API através de uma interface web temporária:
 
