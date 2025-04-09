@@ -96,6 +96,7 @@ Envie seu CSV e visualize os resultados da análise em formato gráfico.
 
 - Redesenho completo da interface com foco em usabilidade
 - Dashboard com gráficos interativos
+- Geração de feedbacks por IA
 - Exportação de relatórios em PDF para cada estudante
 - Hospedagem final no domínio da CIn
 
