@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <Header />
       <Dashboard/>
 
-      {/* <FileUploader /> */}
+      <FileUploader />
     </div>
   );
 };

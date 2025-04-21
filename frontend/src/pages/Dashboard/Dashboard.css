@@ -1,0 +1,7 @@
+#dashboard-view {
+    
+}
+
+.charts-wrapper {
+    @apply flex flex-wrap;
+}

@@ -9,8 +9,8 @@ const FileUploader: React.FC = () => {
   const [apiResponse, setApiResponse] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const API_URL = 'https://meom.pythonanywhere.com';
-  // const API_URL = 'http://127.0.0.1:5000';
+  // const API_URL = 'https://meom.pythonanywhere.com';
+  const API_URL = 'http://127.0.0.1:5000';
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {

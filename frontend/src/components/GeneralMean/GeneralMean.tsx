@@ -10,7 +10,7 @@ export const GeneralMean = ({ }) => {
                     startAngle: -90,
                     endAngle: 90,
                     track: {
-                        background: '#333',
+                        background: '#C8D2D9',
                         startAngle: -90,
                         endAngle: 90,
                     },
@@ -27,7 +27,7 @@ export const GeneralMean = ({ }) => {
                 }
             },
         },
-        series: [34]
+        series: [0]
 
     });
 
