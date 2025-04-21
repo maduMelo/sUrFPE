@@ -3,9 +3,9 @@ import axios from 'axios';
 import { mockData } from './mockData';
 
 import { GeneralMean } from '../../components/GeneralMean/GeneralMean';
-import { TricksMean } from '../../components/TricksMean/TricksMean';
-import { WaveTypeTricks } from '../../components/WaveTypeTricks/WaveTypeTricks';
-import { TrickMetrics } from '../../components/TrickMetrics/TrickMetrics';
+import { TricksMean } from '../../components/Charts/TricksMean/TricksMean';
+import { WaveTypeTricks } from '../../components/Charts/WaveTypeTricks/WaveTypeTricks';
+import { TrickMetrics } from '../../components/Charts/TrickMetrics/TrickMetrics';
 
 import "./Dashboard.css";
 import { Button } from '../../components/Button/Button';
