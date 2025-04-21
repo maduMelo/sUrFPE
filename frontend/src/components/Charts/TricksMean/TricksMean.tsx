@@ -10,6 +10,13 @@ interface TricksMeanProps {
 export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
     const [chartData, setChartData] = useState({
         options: {
+            grid: {
+                padding: {
+                    bottom: -50,
+                    left: -30,
+                    right: -30,
+                },
+            },
             plotOptions: {
                 radialBar: {
                     startAngle: -90,
@@ -25,7 +32,7 @@ export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
                             offsetY: -40
                         },
                         value: {
-                            fontSize: "30px",
+                            fontSize: "20px",
                             show: true,
                             offsetY: -20
                         },
@@ -61,7 +68,8 @@ export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
                 options={chartData.options}
                 series={chartData.series}
                 type="radialBar"
-                width="500"
+                width={260} //370
+                height={240} //350
             />
         </div>
     );

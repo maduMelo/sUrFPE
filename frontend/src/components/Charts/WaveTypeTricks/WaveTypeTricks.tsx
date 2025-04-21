@@ -69,7 +69,8 @@ export const WaveTypeTricks = ({ tricks, frontsideScores, backsideScores }: Wave
                 options={chartData.options}
                 series={chartData.series}
                 type="bar"
-                width="500"
+                width={580}
+                height={220}
             />
         </div>
     );
