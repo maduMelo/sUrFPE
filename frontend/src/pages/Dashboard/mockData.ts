@@ -209,5 +209,15 @@ export const mockData = {
             "Carve FS",
             "Bottom Turn BS"
         ]
+    },
+    "wave_type_tricks_count": {
+        "counts": [
+            10,
+            3
+        ],
+        "wave_types": [
+            "frontside",
+            "backside"
+        ]
     }
 }
