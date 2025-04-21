@@ -95,7 +95,7 @@ h2 {
 
 .response-textarea {
     width: 100%;
-    min-height: 200px;
+    min-height: 80vh;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
