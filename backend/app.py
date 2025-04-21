@@ -75,35 +75,36 @@ def get_tricks_metrics_analysis(df):
     for trick in tricks:
         # Filter data for the current trick
         trick_data = df[df['Manobras'] == trick]
-        
+
         # Get metrics for this trick
         metrics = trick_data['Indicador Manobra'].unique().tolist()
-        
+
         # Initialize lists for backside, frontside, and total scores
         backside_scores = []
         frontside_scores = []
         total_scores = []
-        
+
         # For each metric, calculate the scores
         for metric in metrics:
             # Get backside score (average if multiple entries exist)
-            bs_score = trick_data[(trick_data['Indicador Manobra'] == metric) & 
-                                (trick_data['wave_type'] == 'Back Side')]['Classificação'].mean()
+            bs_score = trick_data[(trick_data['Indicador Manobra'] == metric) &
+                                  (trick_data['wave_type'] == 'Back Side')]['Classificação'].mean()
             bs_score = bs_score if not pd.isna(bs_score) else 0
-            
+
             # Get frontside score (average if multiple entries exist)
-            fs_score = trick_data[(trick_data['Indicador Manobra'] == metric) & 
-                                (trick_data['wave_type'] == 'Front Side')]['Classificação'].mean()
+            fs_score = trick_data[(trick_data['Indicador Manobra'] == metric) &
+                                  (trick_data['wave_type'] == 'Front Side')]['Classificação'].mean()
             fs_score = fs_score if not pd.isna(fs_score) else 0
-            
+
             # Calculate total score (you can adjust this calculation as needed)
-            total_score = (bs_score + fs_score) / 2 if (bs_score != 0 and fs_score != 0) else max(bs_score, fs_score)
-            
+            total_score = (bs_score + fs_score) / 2 if (bs_score !=
+                                                        0 and fs_score != 0) else max(bs_score, fs_score)
+
             # Convert to percentages (assuming original scores are between 0-1)
             backside_scores.append(round(bs_score * 100))
             frontside_scores.append(round(fs_score * 100))
             total_scores.append(round(total_score * 100))
-        
+
         # Add to chartsInfo
         result["chartsInfo"].append({
             "metrics": metrics,
@@ -157,15 +158,15 @@ def analyze_csv():
         tricks_performance_by_wave_type = get_wave_type_trick_scores(df)
 
         # Mean of the athlete trick perfomance by indicator
-        indicator_trick_means = df.groupby(['Atleta', 'Manobras', 'Indicador Manobra'])[
-            'Classificação'].mean().reset_index()
-        indicator_trick_meansII = df.groupby(['wave_type', 'Manobras', 'Indicador Manobra'])[
-            'Classificação'].mean().reset_index()
-        indicator_trick_meansIII = get_tricks_metrics_analysis(df)
+        indicator_trick_means = get_tricks_metrics_analysis(df)
 
         # Count the number of tricks performed by each athlete and wave type
-        tricks_count = df.groupby(['Atleta', 'wave_type'])[
+        tricks_count = df.groupby(['wave_type'])[
             'Manobras'].count().reset_index()
+        tricks_count_final = {
+            "wave_types": ["frontside", "backside"],
+            "counts": tricks_count['Manobras'].tolist()[::-1]
+        }
 
         # Calculate the general mean results for each wave type
         wave_type_performance = df.groupby(['Atleta', 'wave_type'])[
@@ -175,9 +176,9 @@ def analyze_csv():
         return jsonify({
             'tricks_performance_by_wave_type': tricks_performance_by_wave_type,
             'tricks_mean_scores': tricks_mean_scores,
-            'indicator_trick_means_scores': indicator_trick_meansIII,
+            'indicator_trick_means_scores': indicator_trick_means,
 
-            # 'wave_type_tricks_count': tricks_count.to_dict(orient='records'),
+            'wave_type_tricks_count': tricks_count_final,
             # 'wave_type_general_mean_scores': wave_type_performance.to_dict()
         })
 
