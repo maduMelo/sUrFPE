@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 
-export const TricksMean = ({ }) => {
+interface TricksMeanProps {
+    tricks: string[];
+    tricksScores: GLfloat[];
+};
+
+export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
     const [chartData, setChartData] = useState({
         options: {
             plotOptions: {
@@ -10,7 +15,7 @@ export const TricksMean = ({ }) => {
                     startAngle: -90,
                     endAngle: 90,
                     track: {
-                        background: '#333',
+                        background: '#C8D2D9',
                         startAngle: -90,
                         endAngle: 90,
                     },
@@ -31,11 +36,24 @@ export const TricksMean = ({ }) => {
                     }
                 }
             },
-            labels: ['Drop', 'Bottom Turn BS', 'Carve FS', 'Bottom Turn FS'],
+            labels: tricks,
         },
-        series: [85, 59, 91, 68],
-
+        series: tricksScores,
     });
+
+    useEffect(() => {
+        if (tricks && tricksScores) {
+            setChartData(prevChartData => ({
+                ...prevChartData,
+                options: {
+                    ...prevChartData.options,
+                    labels: tricks
+                },
+                series: tricksScores
+            }));
+        };
+    }, [tricks, tricksScores])
+
 
     return (
         <div className="bar-chart">

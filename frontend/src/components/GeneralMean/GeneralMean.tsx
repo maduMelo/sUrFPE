@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import Chart from 'react-apexcharts';
 
 
-export const GeneralMean = ({ }) => {
+interface GeneralMeanProps {
+    generalMeanScore: GLfloat;
+};
+
+export const GeneralMean = ({ generalMeanScore }: GeneralMeanProps ) => {
     const [chartData, setChartData] = useState({
         options: {
+            colors: ["#20E647"],
             plotOptions: {
                 radialBar: {
                     startAngle: -90,
@@ -27,7 +32,7 @@ export const GeneralMean = ({ }) => {
                 }
             },
         },
-        series: [0]
+        series: [generalMeanScore]
 
     });
 
