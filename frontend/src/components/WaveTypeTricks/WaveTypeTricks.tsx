@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 
 
-export const WaveTypeTricks = ({ }) => {
+interface WaveTypeTricksProps {
+    tricks: string[];
+    frontsideScores: GLfloat[];
+    backsideScores: GLfloat[];
+};
+
+export const WaveTypeTricks = ({ tricks, frontsideScores, backsideScores }: WaveTypeTricksProps) => {
     const [chartData, setChartData] = useState({
         options: {
             chart: {
@@ -10,21 +16,52 @@ export const WaveTypeTricks = ({ }) => {
                 stacked: true,
             },
             xaxis: {
-                categories: ['Drop', 'Bottom Turn BS', 'Carve FS', 'Bottom Turn FS']
-            }
+                categories: tricks
+            },
+            yaxis: {
+                min: 0,
+                max: 200,
+                labels: {
+                    formatter: function (val: number) {
+                        return val + '%';
+                    },
+                },
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val: number) {
+                    return val + '%';
+                },
+            },
         },
         series: [
             {
                 name: "Frontside",
-                data: [30, 40, 45, 50]
+                data: frontsideScores
             },
             {
                 name: "Backside",
-                data: [60, 20, 75, 70]
+                data: backsideScores
             }
         ]
-
     });
+
+    useEffect(() => {
+        setChartData(prevChartData => ({
+            ...prevChartData,
+            options: {
+                ...prevChartData.options,
+                xaxis: {
+                    ...prevChartData.options.xaxis,
+                    categories: tricks
+                }
+            },
+            series: [
+                { name: "Frontside", data: frontsideScores },
+                { name: "Backside", data: backsideScores }
+            ]
+        }))
+    }, [tricks, frontsideScores, backsideScores]);
 
     return (
         <div className="bar-chart">
