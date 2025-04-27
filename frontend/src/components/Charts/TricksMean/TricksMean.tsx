@@ -13,8 +13,8 @@ export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
             grid: {
                 padding: {
                     bottom: -50,
-                    left: -30,
-                    right: -30,
+                    left: -35,
+                    // right: -15,
                 },
             },
             plotOptions: {
@@ -68,8 +68,8 @@ export const TricksMean = ({ tricks, tricksScores }: TricksMeanProps) => {
                 options={chartData.options}
                 series={chartData.series}
                 type="radialBar"
-                width={260} //370
-                height={240} //350
+                width={300} //370
+                height={280} //350
             />
         </div>
     );

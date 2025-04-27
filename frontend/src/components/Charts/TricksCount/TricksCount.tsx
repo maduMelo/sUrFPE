@@ -17,18 +17,18 @@ export const TricksCount = ({ tricksCount }: TricksCountProps) => {
             labels: ['Frontside', 'Backside'],
             plotOptions: {
                 pie: {
-                  donut: {
-                    size: '80%',
-                    labels: {
-                      show: true,
-                      total: {
-                        show: true,
-                        fontSize: '16px',
-                        fontWeight: 600,
-                        formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0).toString(),
-                      },
+                    donut: {
+                        size: '80%',
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                fontSize: '16px',
+                                fontWeight: 600,
+                                formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0).toString(),
+                            },
+                        },
                     },
-                  },
                 },
             },
         },
@@ -44,7 +44,6 @@ export const TricksCount = ({ tricksCount }: TricksCountProps) => {
         };
     }, [tricksCount])
 
-
     return (
         <div className="bar-chart">
             <Chart
@@ -52,7 +51,7 @@ export const TricksCount = ({ tricksCount }: TricksCountProps) => {
                 series={chartData.series}
                 type="donut"
                 width={260} //370
-                height={240} //350
+                height={210} //350
             />
         </div>
     );
