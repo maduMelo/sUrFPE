@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 import "./Dashboard.css";
 import { mockData } from './mockData';
+import loadingAnimation from "../../assets/loading.gif";
 
 import { Button } from '../../components/Button/Button';
 import { FilePicker } from '../../components/FilePicker/FilePicker';
@@ -15,6 +17,8 @@ import { TricksCount } from '../../components/Charts/TricksCount/TricksCount';
 
 export const Dashboard = ({ }) => {
     const [analysisData, setAnalysisData] = useState(mockData);
+    const [aiFeedback, setAiFeedback] = useState("Feedback gerado por IA a partir das análises feitas em cima dos dados do treinamento");
+    const [loadingFeedback, setLoadingFeedback] = useState(false);
 
     // const API_URL = 'https://meom.pythonanywhere.com';
     const API_URL = 'http://127.0.0.1:5000';
@@ -24,6 +28,8 @@ export const Dashboard = ({ }) => {
         formData.append('file', file);
 
         try {
+            setLoadingFeedback(true);
+
             const response = await axios.post(
                 `${API_URL}/analyze`,
                 formData,
@@ -33,8 +39,19 @@ export const Dashboard = ({ }) => {
                     }
                 }
             );
-
             setAnalysisData(response.data);
+
+            const responseII = await axios.post(
+                `${API_URL}/feedback`,
+                response.data,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            setAiFeedback(responseII.data.feedback);
+            setLoadingFeedback(false);
         } catch (err) { console.log(err) };
     };
 
@@ -85,13 +102,15 @@ export const Dashboard = ({ }) => {
                 <div className="col-span-2 row-span-2 rounded-lg">
                     <ChartContainer
                         title="Feedback do treinamento"
-                        description="Feedback gerado por IA a partir das análises feitas em cima dos dados do treinamento"
+                        description=""
                     >
-                        <WaveTypeTricks
-                            tricks={analysisData["tricks_performance_by_wave_type"]["tricks"]}
-                            frontsideScores={analysisData["tricks_performance_by_wave_type"]["frontside"]}
-                            backsideScores={analysisData["tricks_performance_by_wave_type"]["backside"]}
-                        />
+                        {loadingFeedback ? (<img src={loadingAnimation} alt="carregando..." />) : (
+                            <p className="text-[#464646] text-[15px]">
+                                <ReactMarkdown >
+                                    {aiFeedback}
+                                </ReactMarkdown>
+                            </p>
+                        )}
                     </ChartContainer>
                 </div>
 
