@@ -1,0 +1,4 @@
+
+.charts-wrapper {
+    @apply flex flex-wrap justify-around items-center;
+}
