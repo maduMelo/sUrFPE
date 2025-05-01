@@ -37,8 +37,8 @@ O projeto está atualmente em **desenvolvimento ativo**:
 O sistema espera um arquivo `.csv` com as seguintes colunas:
 
 ```
-['Name', 'Position', 'Duration', 'Atleta', 'Base do Surfista',
- 'Classificação', 'Data', 'Id Onda', 'Indicador Manobra', 'Lado Onda',
+['Atleta', 'Base do Surfista',
+ 'Classificação', 'Data', 'Indicador Manobra', 'Lado Onda',
  'Manobras']
 ```
 
@@ -56,7 +56,9 @@ Envie seu CSV e visualize os resultados da análise em formato gráfico 📁 **[
 
 Ou testar o envio de arquivos e retornos da API através de uma interface web temporária:
 
-🔗 **[Abrir Frontend Temporário](https://elegant-naiad-6a2f2d.netlify.app/)** 
+🔗 **[Abrir Frontend Temporário](https://beautiful-mousse-fe0ad4.netlify.app/)** 
+
+🔗 **[Abrir Interface para testar API](https://elegant-naiad-6a2f2d.netlify.app/)** 
 
 🔗 **[Abrir API](https://meom.pythonanywhere.com/)** 
 
