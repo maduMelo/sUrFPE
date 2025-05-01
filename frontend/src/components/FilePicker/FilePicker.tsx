@@ -8,10 +8,10 @@ interface FilePickerProps {
 export const FilePicker: React.FC<FilePickerProps> = ({ onFileSelected }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     const handleButtonClick = () => {
-        setError(null);
+        // setError(null);
         fileInputRef.current?.click();
     };
 
@@ -26,14 +26,14 @@ export const FilePicker: React.FC<FilePickerProps> = ({ onFileSelected }) => {
 
         // Validate file type
         if (file.type !== 'text/csv' && !file.name.toLowerCase().endsWith('.csv')) {
-            setError('Please select a CSV file');
+            // setError('Please select a CSV file');
             setSelectedFile(null);
             return;
         }
 
         setSelectedFile(file);
         onFileSelected(file);
-        setError(null);
+        // setError(null);
     };
 
     return (

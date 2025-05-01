@@ -28,8 +28,8 @@ export const Dashboard = ({ }) => {
 
     const { toPDF, targetRef } = usePDF({filename: `${analysisData["tricks_mean_scores"]["athlete"]}.pdf`});
 
-    // const API_URL = 'https://meom.pythonanywhere.com';
-    const API_URL = 'http://127.0.0.1:5000';
+    const API_URL = 'https://meom.pythonanywhere.com';
+    // const API_URL = 'http://127.0.0.1:5000';
 
     const sendCSV = async (file: File) => {
         const formData = new FormData();

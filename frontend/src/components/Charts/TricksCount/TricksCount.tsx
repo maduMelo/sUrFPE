@@ -11,7 +11,7 @@ export const TricksCount = ({ tricksCount }: TricksCountProps) => {
         options: {
             legend: {
                 show: true,
-                position: "bottom",
+                position: 'bottom' as 'bottom',
             },
             labels: ['Frontside', 'Backside'],
             plotOptions: {
@@ -24,7 +24,7 @@ export const TricksCount = ({ tricksCount }: TricksCountProps) => {
                                 show: true,
                                 fontSize: '16px',
                                 fontWeight: 600,
-                                formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0).toString(),
+                                formatter: (w: any) => w.globals.seriesTotals.reduce((a: any, b: any) => a + b, 0).toString(),
                             },
                         },
                     },
