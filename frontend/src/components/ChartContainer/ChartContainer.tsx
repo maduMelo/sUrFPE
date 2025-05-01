@@ -11,7 +11,7 @@ export const ChartContainer = ({ title, description, children }: ChartContainerP
 
     return (
         <div
-            className="flex flex-col justify-between p-4 h-full w-full rounded-3xl bg-white"
+            className="flex flex-col justify-between p-4 h-full w-full rounded-3xl bg-white shadow-lg"
         >
             <div>
                 <h1 className="text-[#84332F] text-[18px] font-medium">

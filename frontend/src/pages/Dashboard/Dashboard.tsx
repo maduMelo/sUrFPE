@@ -66,7 +66,7 @@ export const Dashboard = ({ }) => {
     return (
         <div className='mx-[4vw]'>
             <header className='flex justify-between items-center mb-6 px-6 pb-6 border-b border-b-[#CECECE]'>
-                <h1 className='text-[28px] text-[#1E1E1E] font-medium'>Relatório do atleta</h1>
+                <h1 className='text-[28px] text-[#1a1a1a] font-medium'>Relatório do atleta</h1>
 
                 <div className='flex gap-2 w-[40vw]'>
                     <FilePicker onFileSelected={sendCSV} />
