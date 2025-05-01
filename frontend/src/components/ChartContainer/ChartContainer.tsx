@@ -21,7 +21,7 @@ export const ChartContainer = ({ title, description, children }: ChartContainerP
                     {description}
                 </p>
             </div>
-            <div className="flex flex-wrap h-full items-center justify-center w-fit">
+            <div className="flex flex-wrap h-full items-start justify-center w-fit">
                 {children}
             </div>
         </div>

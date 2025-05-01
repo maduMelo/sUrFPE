@@ -3,9 +3,18 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import numpy as np
 from flask_cors import CORS
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
+from google import genai
 
+
+# load .env varibales
+load_dotenv()
 
 # Function definitions
+
+
 def process_csv(file):
     # Read the CSV file into a DataFrame
     df = pd.read_csv(file)
@@ -116,6 +125,18 @@ def get_tricks_metrics_analysis(df):
     return result
 
 
+def get_AI_feedback(statistical_analysis):
+    gemini_key = os.getenv('GEMINI_API_KEY')
+    client = genai.Client(api_key=gemini_key)
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash",
+        contents=f"generate a feedback based on this statistical analysis of the training session {statistical_analysis}, answer in brazilian portuguese as a surfer trainer professional be concise on the answer but make sure to point out where the athlete is doing well and where there's space for improvement and how he can get better, use a kind tone but as you are talking to an adult, use markdown for your answer and keep it at 3006 character count maximum and 2800 character count minimum"
+    )
+
+    return response.text
+
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -177,10 +198,24 @@ def analyze_csv():
             'tricks_performance_by_wave_type': tricks_performance_by_wave_type,
             'tricks_mean_scores': tricks_mean_scores,
             'indicator_trick_means_scores': indicator_trick_means,
-
             'wave_type_tricks_count': tricks_count_final,
-            # 'wave_type_general_mean_scores': wave_type_performance.to_dict()
         })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/feedback', methods=['POST'])
+def ai_feedback():
+    try:
+        json_data = request.get_json()
+
+        if json_data is None:
+            return jsonify({'error': 'No JSON data received'}), 400
+
+        ai_feedback = get_AI_feedback(json_data)
+
+        return jsonify({'feedback': ai_feedback}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -188,7 +223,7 @@ def analyze_csv():
 
 @app.route('/', methods=['GET'])
 def index():
-    return jsonify({'message': 'Welcome to the CSV Analysis API!'}), 200
+    return jsonify({'message': 'Welcome to the sUrFPE athlete analysis API!'}), 200
 
 
 if __name__ == '__main__':

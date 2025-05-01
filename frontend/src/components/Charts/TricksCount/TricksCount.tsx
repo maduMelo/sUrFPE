@@ -7,7 +7,6 @@ interface TricksCountProps {
 };
 
 export const TricksCount = ({ tricksCount }: TricksCountProps) => {
-    console.log(tricksCount.reverse());
     const [chartData, setChartData] = useState({
         options: {
             legend: {
