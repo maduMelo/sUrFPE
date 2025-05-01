@@ -3,7 +3,9 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import "./Dashboard.css";
 import { mockData } from './mockData';
+
 import loadingAnimation from "../../assets/loading.gif";
+import aiSurfing from "../../assets/ai_surfing.png";
 
 import { Button } from '../../components/Button/Button';
 import { FilePicker } from '../../components/FilePicker/FilePicker';
@@ -16,8 +18,10 @@ import { TricksCount } from '../../components/Charts/TricksCount/TricksCount';
 
 
 export const Dashboard = ({ }) => {
+    const aiFeedbackPlaceholder = "Feedback gerado por IA a partir das análises feitas em cima dos dados do treinamento";
+
     const [analysisData, setAnalysisData] = useState(mockData);
-    const [aiFeedback, setAiFeedback] = useState("Feedback gerado por IA a partir das análises feitas em cima dos dados do treinamento");
+    const [aiFeedback, setAiFeedback] = useState(aiFeedbackPlaceholder);
     const [loadingFeedback, setLoadingFeedback] = useState(false);
 
     // const API_URL = 'https://meom.pythonanywhere.com';
@@ -61,8 +65,7 @@ export const Dashboard = ({ }) => {
                 <h1 className='text-[28px] text-[#1E1E1E] font-medium'>Relatório do atleta</h1>
 
                 <div className='flex gap-2 w-[40vw]'>
-                    <FilePicker onFileSelected={sendCSV}
-                    />
+                    <FilePicker onFileSelected={sendCSV} />
 
                     <Button
                         variant='outlined'
@@ -99,19 +102,25 @@ export const Dashboard = ({ }) => {
                 </div>
 
                 {/* Feedback do treinamento */}
-                <div className="col-span-2 row-span-2 rounded-lg">
+                <div className="flex flex-col items-center justify-center col-span-2 row-span-2 rounded-lg">
                     <ChartContainer
                         title="Feedback do treinamento"
                         description=""
                     >
-                        {loadingFeedback ? (<img src={loadingAnimation} alt="carregando..." />) : (
-                            <p className="text-[#464646] text-[15px]">
-                                <ReactMarkdown >
-                                    {aiFeedback}
-                                </ReactMarkdown>
-                            </p>
-                        )}
+                        <div className='flex flex-col items-center gap-16'>
+                            {loadingFeedback ? (<img src={loadingAnimation} alt="carregando..." />) : (
+                                <p className="text-[#464646] text-[15px]">
+                                    <ReactMarkdown >
+                                        {aiFeedback}
+                                    </ReactMarkdown>
+                                </p>
+                            )}
+                            { aiFeedback === aiFeedbackPlaceholder && (
+                                <img src={aiSurfing} alt='robô surfando' className='w-[20vw]' />)
+                            }
+                        </div>
                     </ChartContainer>
+
                 </div>
 
                 {/* Desempenho por manobra */}
