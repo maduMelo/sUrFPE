@@ -14,11 +14,34 @@ load_dotenv()
 
 # Function definitions
 
+def check_file_requirements(request):
+    # Check if file was uploaded
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded'}), 400
 
-def process_csv(file):
-    # Read the CSV file into a DataFrame
+    file = request.files['file']
+
+    # Check if file is CSV
+    if not file.filename.endswith('.csv'):
+        return jsonify({'error': 'File must be a CSV'}), 500
+    
     df = pd.read_csv(file)
 
+    # Check if the CSV has all required columns
+    required_columns = {'Lado Onda', 'Atleta', 'Classificação', 'Indicador Manobra', 'Manobras', 'Base do Surfista'}
+    if not required_columns.issubset(set(df.columns)):
+        return jsonify({'error': 'CSV file is missing required columns'}), 500
+    
+    # Check if there's only one athlete
+    first_value = df['Atleta'].iloc[0]
+    is_data_of_only_one_athlete = (df['Atleta'] == first_value).all()
+    if not is_data_of_only_one_athlete:
+        return jsonify({'error': 'CSV file contains data of too many athletes'}), 500
+
+    return df
+
+
+def process_csv(df):
     # Change the values on Classificação column to float
     classification_map = {
         '4. Perfeito': 1.0,
@@ -146,28 +169,16 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 @app.route('/analyze', methods=['POST'])
 def analyze_csv():
     try:
-        # Check if file was uploaded
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file uploaded'}), 400
-
-        file = request.files['file']
-
-        # Check if file is CSV
-        if not file.filename.endswith('.csv'):
-            return jsonify({'error': 'File must be a CSV'}), 400
-
-        # Check if the columns are correct
-
-        # Turn the file into a pandas DataFrame already treating the data
-        df = process_csv(file)
+        df = check_file_requirements(request)
+        processed_df = process_csv(df)
 
         # Mean of the athlete results
-        avg_score_per_surfer = df.groupby('Atleta')['Classificação'].mean()
+        avg_score_per_surfer = processed_df.groupby('Atleta')['Classificação'].mean()
         general_mean_scores = [{'surfer': surfer, 'score': round(score*100, 2)}
                                for surfer, score in avg_score_per_surfer.items()]
 
         # Mean of the athlete trick perfomance
-        trick_performance = df.groupby(['Atleta', 'Manobras'])[
+        trick_performance = processed_df.groupby(['Atleta', 'Manobras'])[
             'Classificação'].agg(['mean']).reset_index()
         tricks_mean_scores = {
             "athlete": trick_performance['Atleta'].iloc[0],
@@ -176,13 +187,13 @@ def analyze_csv():
         }
 
         # Mean
-        tricks_performance_by_wave_type = get_wave_type_trick_scores(df)
+        tricks_performance_by_wave_type = get_wave_type_trick_scores(processed_df)
 
         # Mean of the athlete trick perfomance by indicator
-        indicator_trick_means = get_tricks_metrics_analysis(df)
+        indicator_trick_means = get_tricks_metrics_analysis(processed_df)
 
         # Count the number of tricks performed by each athlete and wave type
-        tricks_count = df.groupby(['wave_type'])[
+        tricks_count = processed_df.groupby(['wave_type'])[
             'Manobras'].count().reset_index()
         tricks_count_final = {
             "wave_types": ["frontside", "backside"],
@@ -190,7 +201,7 @@ def analyze_csv():
         }
 
         # Calculate the general mean results for each wave type
-        wave_type_performance = df.groupby(['Atleta', 'wave_type'])[
+        wave_type_performance = processed_df.groupby(['Atleta', 'wave_type'])[
             'Classificação'].mean().unstack()
 
         # Return the results as JSON to the client
