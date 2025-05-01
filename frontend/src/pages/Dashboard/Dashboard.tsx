@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import "./Dashboard.css";
 import { mockData } from './mockData';
+import { usePDF } from 'react-to-pdf';
 
 import loadingAnimation from "../../assets/loading.gif";
 import aiSurfing from "../../assets/ai_surfing.png";
@@ -23,6 +24,9 @@ export const Dashboard = ({ }) => {
     const [analysisData, setAnalysisData] = useState(mockData);
     const [aiFeedback, setAiFeedback] = useState(aiFeedbackPlaceholder);
     const [loadingFeedback, setLoadingFeedback] = useState(false);
+    const [isDownloading, setIsDownloading] = useState(false);
+
+    const { toPDF, targetRef } = usePDF({filename: `${analysisData["tricks_mean_scores"]["athlete"]}.pdf`});
 
     // const API_URL = 'https://meom.pythonanywhere.com';
     const API_URL = 'http://127.0.0.1:5000';
@@ -61,7 +65,7 @@ export const Dashboard = ({ }) => {
 
     return (
         <div className='mx-[4vw]'>
-            <header className='flex justify-between items-center mx-6 mb-6 px-6 pb-6 border-b border-b-[#CECECE]'>
+            <header className='flex justify-between items-center mb-6 px-6 pb-6 border-b border-b-[#CECECE]'>
                 <h1 className='text-[28px] text-[#1E1E1E] font-medium'>Relatório do atleta</h1>
 
                 <div className='flex gap-2 w-[40vw]'>
@@ -69,13 +73,20 @@ export const Dashboard = ({ }) => {
 
                     <Button
                         variant='outlined'
-                        callToAction='Baixar Análise'
+                        callToAction={isDownloading ? 'Preparando PDF...' : 'Baixar Análise'}
+                        onClick={() => {
+                            setIsDownloading(true);
+                            toPDF();
+                            setTimeout(() => {
+                                setIsDownloading(false);
+                            }, 1500);
+                        }}
                     />
                 </div>
             </header>
 
             {/* Charts Grid */}
-            <div className='h-full w-full grid grid-cols-4 grid-rows-5 gap-4'>
+            <div className='h-full w-full grid grid-cols-4 grid-rows-5 gap-4' ref={targetRef}>
                 {/* Desempenho geral */}
                 <div className="col-span-1 row-span-1 rounded-lg">
                     <ChartContainer
@@ -115,7 +126,7 @@ export const Dashboard = ({ }) => {
                                     </ReactMarkdown>
                                 </p>
                             )}
-                            { aiFeedback === aiFeedbackPlaceholder && (
+                            { aiFeedback === aiFeedbackPlaceholder && !loadingFeedback && (
                                 <img src={aiSurfing} alt='robô surfando' className='w-[20vw]' />)
                             }
                         </div>
