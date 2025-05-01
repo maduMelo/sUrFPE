@@ -126,7 +126,7 @@ export const Dashboard = ({ }) => {
                                     </ReactMarkdown>
                                 </p>
                             )}
-                            { aiFeedback === aiFeedbackPlaceholder && (
+                            { aiFeedback === aiFeedbackPlaceholder && !loadingFeedback && (
                                 <img src={aiSurfing} alt='robô surfando' className='w-[20vw]' />)
                             }
                         </div>
