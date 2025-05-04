@@ -21,6 +21,11 @@ export const TrickMetrics = ({ trickMetrics }: TrickMetricsProps) => {
             yaxis: {
                 min: 0,
                 max: 100,
+                labels: {
+                    formatter: function (val: number) {
+                        return val + "%";
+                    },
+                }
             },
 
             grid: {
