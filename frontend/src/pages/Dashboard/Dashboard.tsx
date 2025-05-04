@@ -74,6 +74,7 @@ export const Dashboard = ({ }) => {
                     <Button
                         variant='outlined'
                         callToAction={isDownloading ? 'Preparando PDF...' : 'Baixar Análise'}
+                        icon='download'
                         onClick={() => {
                             setIsDownloading(true);
                             toPDF();

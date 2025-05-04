@@ -48,6 +48,7 @@ export const FilePicker: React.FC<FilePickerProps> = ({ onFileSelected }) => {
             <Button
                 variant='contained'
                 callToAction={selectedFile ? `Selected: ${selectedFile.name}` : 'Nova Análise'}
+                icon="upload_file"
                 onClick={handleButtonClick}
             />
         </>

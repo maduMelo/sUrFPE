@@ -6,7 +6,7 @@ export const Footer = () => {
 
     return (
         <footer
-            className="flex items-center justify-between px-10 h-16 mt-[3rem]  bg-[#224A68] text-white overflow-clip"
+            className="flex items-center justify-between px-10 h-16 mt-[3rem] bg-[#224A68] text-white overflow-clip"
         >
             <img src={logo} alt="sUrFPE logo" className="w-[4rem]" />
 
