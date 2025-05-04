@@ -6,9 +6,9 @@ export const Footer = () => {
 
     return (
         <footer
-            className="flex items-center justify-between px-10 h-24 mt-[3rem]  bg-[#224A68] text-white overflow-clip"
+            className="flex items-center justify-between px-10 h-16 mt-[3rem]  bg-[#224A68] text-white overflow-clip"
         >
-            <img src={logo} alt="sUrFPE logo" className="w-[5rem]" />
+            <img src={logo} alt="sUrFPE logo" className="w-[4rem]" />
 
             <div className="text-[12px]">
                 sUrFPE {new Date().getFullYear()} © Todos os direitos reservados
@@ -18,7 +18,7 @@ export const Footer = () => {
                 href="https://www.instagram.com/surfpe_" target="blank"
                 className="hover:bg-white/20 rounded-md cursor-pointer"
             >
-                <img src={Instagram} alt="sUrFPE logo" className="w-[2.5rem]" />
+                <img src={Instagram} alt="sUrFPE logo" className="w-[2rem]" />
             </a>
         </footer>
     );
