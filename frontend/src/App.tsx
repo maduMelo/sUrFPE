@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import './App.css';
+
+import { getApi } from './services/api';
+
 import { Header } from './components/Header/Header';
 import { Dashboard } from './pages/Dashboard/Dashboard';
 import { Footer } from './components/Footer/Footer';
-import './App.css';
 
 
 const App: React.FC = () => {
+  useEffect(() => { getApi() }, []);
+
   return (
     <div className="App">
       <Header />

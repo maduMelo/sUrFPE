@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import "./Dashboard.css";
 import { mockData } from './mockData';
@@ -7,6 +6,8 @@ import { usePDF } from 'react-to-pdf';
 
 import loadingAnimation from "../../assets/loading.gif";
 import aiSurfing from "../../assets/ai_surfing.png";
+
+import { getAnalysis, getFeedback } from '../../services/api';
 
 import { Button } from '../../components/Button/Button';
 import { FilePicker } from '../../components/FilePicker/FilePicker';
@@ -28,39 +29,18 @@ export const Dashboard = ({ }) => {
 
     const { toPDF, targetRef } = usePDF({filename: `${analysisData["tricks_mean_scores"]["athlete"]}.pdf`});
 
-    const API_URL = 'https://meom.pythonanywhere.com';
-    // const API_URL = 'http://127.0.0.1:5000';
-
     const sendCSV = async (file: File) => {
         const formData = new FormData();
         formData.append('file', file);
 
-        try {
-            setLoadingFeedback(true);
+        setLoadingFeedback(true);
+        getAnalysis(formData).then((response) => {
+            setAnalysisData(response);
 
-            const response = await axios.post(
-                `${API_URL}/analyze`,
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            );
-            setAnalysisData(response.data);
-
-            const responseII = await axios.post(
-                `${API_URL}/feedback`,
-                response.data,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            setAiFeedback(responseII.data.feedback);
-            setLoadingFeedback(false);
-        } catch (err) { console.log(err) };
+            getFeedback(response).then((feedback) => {
+                setAiFeedback(feedback);
+            });
+        }).finally(() => setLoadingFeedback(false) );
     };
 
     return (
