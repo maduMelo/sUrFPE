@@ -85,8 +85,8 @@ export const Dashboard = ({ }) => {
                 </div>
             </header>
 
-            {/* Charts Grid */}
-            <div className='h-full w-full grid grid-cols-4 grid-rows-5 gap-4' ref={targetRef}>
+            {/* Charts Grid */} 
+            <div className='h-full w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4' ref={targetRef}>
                 {/* Desempenho geral */}
                 <div className="col-span-1 row-span-1 rounded-lg">
                     <ChartContainer
@@ -113,7 +113,7 @@ export const Dashboard = ({ }) => {
                 </div>
 
                 {/* Feedback do treinamento */}
-                <div className="flex flex-col items-center justify-center col-span-2 row-span-2 rounded-lg">
+                <div className="flex flex-col items-center justify-center col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 rounded-lg">
                     <ChartContainer
                         title="Feedback do treinamento"
                         description=""
@@ -131,11 +131,10 @@ export const Dashboard = ({ }) => {
                             }
                         </div>
                     </ChartContainer>
-
                 </div>
 
                 {/* Desempenho por manobra */}
-                <div className="col-span-2 row-span-1 rounded-lg">
+                <div className="col-span-1 md:col-span-2 lg:col-span-2 row-span-1 rounded-lg">
                     <ChartContainer
                         title="Desempenho por manobra"
                         description="Média geral de cada manobra detalhando o lado da onda"
@@ -149,7 +148,7 @@ export const Dashboard = ({ }) => {
                 </div>
 
                 {/* Desempenho por indicador */}
-                <div className="col-span-4 row-span-3 rounded-lg">
+                <div className="col-span-1 md:col-span-2 lg:col-span-4 lg:row-span-3 rounded-lg">
                     <ChartContainer
                         title="Desempenho por indicador"
                         description="Média geral de cada indicador das manobras detalhados por lado da onda"
