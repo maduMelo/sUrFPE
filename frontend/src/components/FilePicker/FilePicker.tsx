@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Button } from '../Button/Button';
 
 interface FilePickerProps {
@@ -7,7 +7,7 @@ interface FilePickerProps {
 
 export const FilePicker: React.FC<FilePickerProps> = ({ onFileSelected }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    //const [selectedFile, setSelectedFile] = useState<File | null>(null);
     // const [error, setError] = useState<string | null>(null);
 
     const handleButtonClick = () => {
@@ -27,11 +27,11 @@ export const FilePicker: React.FC<FilePickerProps> = ({ onFileSelected }) => {
         // Validate file type
         if (file.type !== 'text/csv' && !file.name.toLowerCase().endsWith('.csv')) {
             // setError('Please select a CSV file');
-            setSelectedFile(null);
+            //setSelectedFile(null);
             return;
         }
 
-        setSelectedFile(file);
+        //setSelectedFile(file);
         onFileSelected(file);
         // setError(null);
     };

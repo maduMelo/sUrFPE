@@ -1,20 +1,6 @@
 # Análise de Atletas sUrFPE
 
-**sUrFPE Athlete Analysis** é uma aplicação web desenvolvida para apoiar instrutores e monitores da organização **sUrFPE**. O sistema gera relatórios com base em arquivos CSV contendo as notas de avaliações de treinamentos práticos de surf, fornecendo uma visão analítica sobre o desempenho dos estudantes. Através da análise de indicadores como manobras, lado da onda, base do surfista, entre outros, o app contribui para um acompanhamento mais preciso da evolução de cada atleta.
-
----
-
-## 🚀 Status do Projeto
-
-O projeto está atualmente em **desenvolvimento ativo**:
-
-- ✅ Backend com lógica de análise implementada
-- ✅ API do backend implantada no PythonAnywhere
-- ✅ Protótipo inicial do frontend no Netlify (upload de CSV + resposta em JSON)
-- ✅ Notebook no Google Colab com saída visual para demonstração
-- 🔄 Redesenho do frontend em andamento
-- 🧪 Testes unitários em desenvolvimento (`pytest` no backend, `jest` no frontend)
-- 📦 Geração de relatórios em PDF será implementada futuramente
+**sUrFPE Athlete Analysis** é uma aplicação web desenvolvida para apoiar instrutores e monitores da organização **sUrFPE**. O sistema gera relatórios com base em arquivos CSV gerados a partir da interface do **Dartfish** contendo as notas de avaliações de treinamentos práticos de surf, fornecendo uma visão analítica sobre o desempenho dos estudantes.
 
 ---
 
@@ -25,10 +11,8 @@ O projeto está atualmente em **desenvolvimento ativo**:
   - `Manobras`
   - `Base do Surfista`
   - `Lado da Onda`
-  - `Indicador de Manobra`
-  - E outros critérios
-- Retorna uma visão detalhada do desempenho do atleta
-- **(Planejado)**: Exibição dos resultados em gráficos + geração de relatórios em PDF
+  - `Indicadores de Manobra`
+- Retorna uma visão detalhada do desempenho do atleta através de gráficos e feedback por AI, possibilidando seu download em PDF.
 
 ---
 
@@ -37,83 +21,49 @@ O projeto está atualmente em **desenvolvimento ativo**:
 O sistema espera um arquivo `.csv` com as seguintes colunas:
 
 ```
-['Atleta', 'Base do Surfista',
- 'Classificação', 'Data', 'Indicador Manobra', 'Lado Onda',
- 'Manobras']
+['Lado Onda', 'Atleta', 'Classificação', 'Indicador Manobra', 'Manobras', 'Base do Surfista']
 ```
 
-> ❗ Arquivos fora desse formato podem não ser processados corretamente.
+> ❗ Arquivos fora desse formato farão com que a API retorne um erro.
 
 ---
 
-## 🧪 Teste Agora (Demonstração)
+## 👀 Demonstração
 
-Enquanto o frontend final não está pronto, você pode testar a lógica do backend via um **notebook no Google Colab**, com visualização em gráficos:
+É possível testar a aplicação através dos links abaixo e usando esse **[📁 exemplo de CSV](test-data/data.csv)**
 
-🔗 **[Abrir Demonstração no Google Colab](https://colab.research.google.com/drive/11RRetspBUfZcAM0Vt_AFy-9a-7IeHD8B?usp=sharing)**  
 
-Envie seu CSV e visualize os resultados da análise em formato gráfico 📁 **[CSV for testing](test-data/data.csv)** 
+🔗 **[Frontend da aplicação](https://beautiful-mousse-fe0ad4.netlify.app/)** 
 
-Ou testar o envio de arquivos e retornos da API através de uma interface web temporária:
+🔗 **[Interface para testar API](https://elegant-naiad-6a2f2d.netlify.app/)** 
 
-🔗 **[Abrir Frontend Temporário](https://beautiful-mousse-fe0ad4.netlify.app/)** 
+🔗 **[URL da API](https://meom.pythonanywhere.com/)** 
 
-🔗 **[Abrir Interface para testar API](https://elegant-naiad-6a2f2d.netlify.app/)** 
-
-🔗 **[Abrir API](https://meom.pythonanywhere.com/)** 
+🔗 **[Análises realizadas no Google Colab](https://colab.research.google.com/drive/11RRetspBUfZcAM0Vt_AFy-9a-7IeHD8B?usp=sharing)**  
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 ### Backend (Python + Flask)
 - `pandas` e `numpy` para análise de dados
+- API do `gemini` para geração do feedback
 - `Flask` para a API
 - Hospedado no **PythonAnywhere**
-- Testes unitários: `pytest`
 
 ### Frontend (React + TypeScript)
 - React + Vite + TypeScript
 - `axios` para requisições à API
-- `shadcn/ui` para exibição de gráficos
-- Primeira versão hospedada no **Netlify**
-- Testes unitários: `jest`
+- `ApexCharts` para exibição de gráficos
+- Hospedado no **Netlify**
 
 ---
 
-## 📁 Estrutura do Projeto (Visão Geral)
+## 📎 Melhorias Futuras
 
-```
-/backend
-  ├── app.py                # Ponto de entrada da aplicação Flask
-  ├── analysis.py           # Lógica principal de análise
-  ├── tests/                # Testes com Pytest
-
-/frontend
-  ├── src/
-      ├── components/
-      ├── pages/
-      ├── services/
-      ├── App.tsx
-      ├── index.tsx
-  ├── tests/                # Testes com Jest
-```
+- Melhorar UI/UX da interface
+- Melhorar responsividade do site
+- Adicionar gráficos para evolução do atleta ao longo do treino
+- Adicionar mais informações demográficas (informações sobre atleta, avaliador, treino) ao baixar feedback
 
 ---
-
-## 📌 Funcionalidades Planejadas
-
-- Redesenho completo da interface com foco em usabilidade
-- Dashboard com gráficos interativos
-- Geração de feedbacks por IA
-- Exportação de relatórios em PDF para cada estudante
-- Hospedagem final no domínio da CIn
-
----
-
-## ⚠️ Limitações Atuais
-
-- Interface atual é temporária e está em desenvolvimento
-- A lógica de análise ainda pode ser otimizada e melhor estruturada
-- Geração de PDF ainda não implementada
-- Cobertura de testes em progresso
