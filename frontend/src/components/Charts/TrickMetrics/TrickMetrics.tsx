@@ -14,6 +14,11 @@ interface TrickMetricsProps {
 export const TrickMetrics = ({ trickMetrics }: TrickMetricsProps) => {
     const [chartData, setChartData] = useState({
         options: {
+            chart: {
+                width: 600,
+                height: 300,
+            },
+
             xaxis: {
                 categories: trickMetrics["metrics"]
             },
@@ -36,6 +41,18 @@ export const TrickMetrics = ({ trickMetrics }: TrickMetricsProps) => {
                     right: -20,
                 },
             },
+
+            responsive: [
+                {
+                    breakpoint: 640,
+                    options: {
+                        chart: {
+                            width: 400,
+                            height: 250,
+                        },
+                    },
+                },
+            ],
 
             markers: {
                 size: 3,
@@ -94,8 +111,8 @@ export const TrickMetrics = ({ trickMetrics }: TrickMetricsProps) => {
                 options={chartData.options}
                 series={chartData.series}
                 type="radar"
-                width={600}
-                height={300}
+                width={chartData.options.chart.width}
+                height={chartData.options.chart.height}
             />
         </div>
     );

@@ -14,6 +14,8 @@ export const WaveTypeTricks = ({ tricks, frontsideScores, backsideScores }: Wave
             chart: {
                 id: "basic-bar",
                 stacked: true,
+                width: 580,
+                height: 220,
             },
             xaxis: {
                 categories: tricks
@@ -33,6 +35,17 @@ export const WaveTypeTricks = ({ tricks, frontsideScores, backsideScores }: Wave
                     return val + '%';
                 },
             },
+            responsive: [
+                {
+                    breakpoint: 640,
+                    options: {
+                        chart: {
+                            width: 400,
+                            height: 250,
+                        },
+                    },
+                },
+            ],
         },
         series: [
             {
@@ -69,8 +82,9 @@ export const WaveTypeTricks = ({ tricks, frontsideScores, backsideScores }: Wave
                 options={chartData.options}
                 series={chartData.series}
                 type="bar"
-                width={580}
-                height={220}
+                width={chartData.options.chart.width}
+                height={chartData.options.chart.height}
+
             />
         </div>
     );
